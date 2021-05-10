@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Advisor, User, Booking
+from .models import Advisor, User_new, Booking
 
 class AdvisorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -8,7 +8,7 @@ class AdvisorSerializer(serializers.HyperlinkedModelSerializer):
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
+        model = User_new
         fields = ('id', 'name', 'email', 'password')
 
 class BookingSerializer(serializers.ModelSerializer):

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from .models import Advisor, User, Booking
+from .models import Advisor, User_new, Booking
 from .serializers import AdvisorSerializer, UserSerializer, BookingSerializer
 from rest_framework.decorators import api_view, permission_classes
 from django.http.request import HttpRequest
@@ -40,7 +40,7 @@ def register_user(request):
     serializer = UserSerializer(data=request.data)
 
     if serializer.is_valid():
-        u = User(email=request.data['email'], password=hashed_password)
+        u = User_new(email=request.data['email'], password=hashed_password)
         payload = jwt_payload_handler(u)
         token = jwt_encode_handler(payload)
         serializer.save()
@@ -84,7 +84,7 @@ def book_advisor(request, user_id, advisor_id):
         decoded = jwt.decode(token, settings.SECRET_KEY)
         print(decoded['user_id'])
         if str(decoded['user_id'])==user_id:
-            u = User.objects.get(id=user_id)
+            u = User_new.objects.get(id=user_id)
             a = Advisor.objects.get(id=advisor_id)
             b = Booking(booking_time=datetime.strptime(request.data['booking_time'], '%Y-%m-%d %H:%M:%S'), user=u, advisor=a)
             b.save()
@@ -101,7 +101,7 @@ def get_calls(request, user_id):
     decoded = jwt.decode(token, settings.SECRET_KEY)
     print(decoded['user_id'])
     if str(decoded['user_id'])==user_id:
-        u = User.objects.get(id=decoded['user_id'])
+        u = User_new.objects.get(id=decoded['user_id'])
         queryset = Booking.objects.filter(user=u)
         serializer = BookingSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

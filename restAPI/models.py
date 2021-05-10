@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, UserManager
 
 # Create your models here.
 
-class User(AbstractBaseUser):
+class User_new(AbstractBaseUser):
     name = models.CharField(max_length=60)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=600)
@@ -19,5 +19,5 @@ class Advisor(models.Model):
 
 class Booking(models.Model):
     booking_time = models.DateTimeField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User_new, on_delete=models.CASCADE)
     advisor = models.ForeignKey(Advisor, on_delete=models.CASCADE)
