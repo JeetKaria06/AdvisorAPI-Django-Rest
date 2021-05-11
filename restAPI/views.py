@@ -53,8 +53,8 @@ def register_user(request):
 @csrf_exempt
 def login_user(request):
 #     try:
-        if User.objects.filter(email=request.data['email']).exists():
-            u = User.objects.get(email=request.data['email'])
+        if User_new.objects.filter(email=request.data['email']).exists():
+            u = User_new.objects.get(email=request.data['email'])
             if check_password(request.data['password'], u.password):
                 payload = jwt_payload_handler(u)
                 token = jwt_encode_handler(payload)
