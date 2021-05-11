@@ -20,7 +20,7 @@ import jwt
 @csrf_exempt
 def add_advisor(request):
     # print(request.data)
-    serializer = AdminSerializer(data=request.data)
+    serializer = AdvisorSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
