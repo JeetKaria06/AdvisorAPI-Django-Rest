@@ -70,6 +70,7 @@ def login_user(request):
 def getlist_advisor(request, id):
     token = get_authorization_header(request).decode('utf-8').split(' ')[1]
     decoded = jwt.decode(token, settings.SECRET_KEY)
+    print(decoded['user_id'])
     if str(decoded['user_id'])==id:
         queryset = Advisor.objects.all()
         serializer = AdvisorSerializer(queryset, many=True)
