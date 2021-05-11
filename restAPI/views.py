@@ -52,7 +52,7 @@ def register_user(request):
 @permission_classes([AllowAny])
 @csrf_exempt
 def login_user(request):
-    try:
+#     try:
         if User.objects.filter(email=request.data['email']).exists():
             u = User.objects.get(email=request.data['email'])
             if check_password(request.data['password'], u.password):
@@ -62,8 +62,8 @@ def login_user(request):
             return Response(data={"Error":"Email and Password Combination doesn't exist."}, status=status.HTTP_401_UNAUTHORIZED)
 
         return Response(data={"Error":"Email and Password Combination doesn't exist."}, status=status.HTTP_401_UNAUTHORIZED)
-    except:
-        return Response(data={"Error":"Enter email and password both"}, status=status.HTTP_400_BAD_REQUEST)
+#     except:
+#         return Response(data={"Error":"Enter email and password both"}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
